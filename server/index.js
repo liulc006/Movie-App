@@ -1,11 +1,25 @@
 const app = require('./app');
-const { syncAndSeed } = require('./db');
+const { syncAndSeed, User } = require('./db');
+const { Server } = require('socket.io');
 
 const init = async()=> {
   try {
     await syncAndSeed();
     const port = process.env.PORT || 3000;
-    app.listen(port, ()=> console.log(`listening on port ${port}`));
+    const server = app.listen(port, ()=> console.log(`listening on port ${port}`));
+    const socketServer = new Server(server);
+    socketServer.on('connection', socket => {
+      let user;
+      socket.on('auth', async(token) => {
+        user = await User.findByToken(token);
+        socket.broadcast.emit('userEntered', user);
+      });
+      socket.on('disconnect', ()=> {
+        if(user){
+          socket.broadcast.emit('userLeft', user);
+        }
+      });
+    });
   }
   catch(ex){
     console.log(ex);
