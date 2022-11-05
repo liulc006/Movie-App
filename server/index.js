@@ -1,6 +1,7 @@
 const app = require('./app');
 const { syncAndSeed, User } = require('./db');
 const { Server } = require('socket.io');
+const socketUserMap = require('./socketUserMap');
 
 const init = async()=> {
   try {
@@ -13,10 +14,12 @@ const init = async()=> {
       socket.on('auth', async(token) => {
         user = await User.findByToken(token);
         socket.broadcast.emit('userEntered', user);
+        socketUserMap[user.id] = { user, socket };
       });
       socket.on('disconnect', ()=> {
         if(user){
           socket.broadcast.emit('userLeft', user);
+          delete socketUserMap[user.id];
         }
       });
     });

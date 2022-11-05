@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import Home from './Home';
 import Login from './Login';
+import Register from './Register';
 import Cart from './Cart';
 import Profile from './Profile';
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { loginWithToken, fetchCart } from '../store';
+import { loginWithToken, fetchCart, fetchOnlineUsers } from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
 
 class App extends React.Component{
@@ -15,11 +16,12 @@ class App extends React.Component{
     if(!prevProps.auth.id && this.props.auth.id){
       window.socket = io();
       window.socket.emit('auth', window.localStorage.getItem('token'));
+      this.props.dispatch(fetchOnlineUsers());
       window.socket.on('userEntered', user => {
-        console.log(user.username);
+        this.props.dispatch({ type: 'USER_ENTERED', user});
       });
       window.socket.on('userLeft', user => {
-        console.log(user.username);
+        this.props.dispatch({ type: 'USER_LEFT', user});
       });
     }
   }
@@ -29,7 +31,7 @@ class App extends React.Component{
 }
 
 const _App = ()=> {
-  const { auth } = useSelector(state => state);
+  const { auth, onlineUsers } = useSelector(state => state);
   const dispatch = useDispatch();
   useEffect(()=> {
     dispatch(loginWithToken());
@@ -44,7 +46,7 @@ const _App = ()=> {
     <div>
       <h1>Acme Shopping</h1>
       {
-        auth.id ? <Home /> : <Login />
+        auth.id ? <Home /> : <div><Login /><Register /></div>
       }
       {
         !!auth.id  && (
@@ -54,6 +56,17 @@ const _App = ()=> {
               <Link to='/cart'>Cart</Link>
               <Link to='/profile'>Profile</Link>
             </nav>
+            <ul>
+              {
+                onlineUsers.map( user => {
+                  return (
+                    <li key={ user.id }>
+                      { user.username }
+                    </li>
+                  );
+                })
+              }
+            </ul>
             <Routes>
               <Route path='/cart' element={ <Cart /> } />
               <Route path='/profile' element={ <Profile /> } />

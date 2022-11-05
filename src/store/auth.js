@@ -47,4 +47,12 @@ export const attemptLogin = (credentials)=> {
   };
 };
 
+export const register = (credentials)=> {
+  return async(dispatch)=> {
+    const response = await axios.post('/api/auth/register', credentials);
+    window.localStorage.setItem('token', response.data);
+    dispatch(loginWithToken());
+  };
+};
+
 export default auth;
