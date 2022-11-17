@@ -8,29 +8,7 @@ import { connect, useSelector, useDispatch } from 'react-redux';
 import { loginWithToken, fetchCart, fetchOnlineUsers } from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
 
-class App extends React.Component{
-  componentDidUpdate(prevProps){
-    if(prevProps.auth.id && !this.props.auth.id){
-      window.socket.close();
-    }
-    if(!prevProps.auth.id && this.props.auth.id){
-      window.socket = io();
-      window.socket.emit('auth', window.localStorage.getItem('token'));
-      this.props.dispatch(fetchOnlineUsers());
-      window.socket.on('userEntered', user => {
-        this.props.dispatch({ type: 'USER_ENTERED', user});
-      });
-      window.socket.on('userLeft', user => {
-        this.props.dispatch({ type: 'USER_LEFT', user});
-      });
-    }
-  }
-  render(){
-    return <_App />;
-  }
-}
-
-const _App = ()=> {
+const App = ()=> {
   const { auth, onlineUsers } = useSelector(state => state);
   const dispatch = useDispatch();
   useEffect(()=> {
@@ -56,17 +34,6 @@ const _App = ()=> {
               <Link to='/cart'>Cart</Link>
               <Link to='/profile'>Profile</Link>
             </nav>
-            <ul>
-              {
-                onlineUsers.map( user => {
-                  return (
-                    <li key={ user.id }>
-                      { user.username }
-                    </li>
-                  );
-                })
-              }
-            </ul>
             <Routes>
               <Route path='/cart' element={ <Cart /> } />
               <Route path='/profile' element={ <Profile /> } />
