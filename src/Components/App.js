@@ -7,6 +7,7 @@ import Profile from './Profile';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { loginWithToken, fetchCart, fetchOnlineUsers } from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
+import Nav from './Nav';
 
 const App = ()=> {
   const { auth, onlineUsers } = useSelector(state => state);
@@ -22,25 +23,24 @@ const App = ()=> {
   }, [auth]);
   return (
     <div>
-      <h1>Acme Shopping</h1>
-      {
-        auth.id ? <Home /> : <div><Login /><Register /></div>
-      }
+      <h1>Movie App</h1>
+      <Nav />
       {
         !!auth.id  && (
           <div>
             <nav>
               <Link to='/'>Home</Link>
-              <Link to='/cart'>Cart</Link>
               <Link to='/profile'>Profile</Link>
             </nav>
-            <Routes>
-              <Route path='/cart' element={ <Cart /> } />
-              <Route path='/profile' element={ <Profile /> } />
-            </Routes>
           </div>
         )
       }
+      <Routes>
+        <Route path='/' element={ <Home />} />
+        <Route path='/profile' element={ <Profile /> } />
+        <Route path='/register' element={ <Register /> } />
+        <Route path='/login' element={ <Login /> } />
+      </Routes>
     </div>
   );
 };
