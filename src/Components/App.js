@@ -24,7 +24,6 @@ const App = ()=> {
   }, [auth]);
   return (
     <div>
-      <h1>Movie App</h1>
       <Nav />
       {
         !!auth.id  && (
