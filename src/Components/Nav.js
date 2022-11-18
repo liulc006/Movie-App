@@ -7,7 +7,7 @@ const Nav = () => {
     return (
         <nav>
             <Link to='/'>Home</Link>
-            <Link to='/movie'>Movie</Link>
+            <Link to='/movies'>Movie</Link>
             { auth.id ? <Link to='/profile'>Profile</Link> : <Link to='/login'>Login</Link>}
         </nav>
     );
