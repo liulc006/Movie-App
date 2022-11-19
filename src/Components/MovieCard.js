@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, SliderThumb } from '@mui/material';
+import { Grid, Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const stringReducer = (text, word_count=30) => {
@@ -21,7 +22,8 @@ const stringReducer = (text, word_count=30) => {
 const MovieCard = (movieObj) => {
     const { movie } = movieObj;
     return(
-        <Card sx={{ maxWidth: 345 }} >
+        <Grid item key={movie?.id} xs={12} sm={6} md={4} lg={3}>
+        <Card sx={{ maxWidth: 345, height: 650 }} >
             <CardActionArea href={`#/movies/${movie?.id}`}>
               <CardMedia
                 component="img"
@@ -44,6 +46,7 @@ const MovieCard = (movieObj) => {
               </CardContent>
             </CardActionArea>
           </Card>
+          </Grid>
     )
 };
 

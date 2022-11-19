@@ -8,6 +8,7 @@ import { loginWithToken, fetchCart, fetchMovie } from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
 import Nav from './Nav';
 import Movie from './Movie';
+import MovieDetail from './MovieDetail'
 
 const App = ()=> {
   const { auth, onlineUsers } = useSelector(state => state);
@@ -25,22 +26,13 @@ const App = ()=> {
   return (
     <div>
       <Nav />
-      {
-        !!auth.id  && (
-          <div>
-            <nav>
-              <Link to='/'>Home</Link>
-              <Link to='/profile'>Profile</Link>
-            </nav>
-          </div>
-        )
-      }
       <Routes>
         <Route path='/' element={ <Home />} />
         <Route path='/profile' element={ <Profile /> } />
         <Route path='/register' element={ <Register /> } />
         <Route path='/login' element={ <Login /> } />
         <Route path='/movies' element={<Movie />} />
+        <Route path='/movies/:id' element={<MovieDetail/>} />
       </Routes>
     </div>
   );
