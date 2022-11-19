@@ -20,6 +20,7 @@ const Login = ()=> {
     dispatch(attemptLogin(credentials));
   };
   return (
+    <div style={{display:'flex',justifyContent: 'center', margin: '10px'}}>
     <Box sx={{maxWidth: 300, display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
       <h2>Login</h2>
       <form>
@@ -27,16 +28,19 @@ const Login = ()=> {
           value = { credentials.username }
           onChange = { onChange }
           name = 'username'
+          sx={{margin:'5px'}}
         />
         <TextField id="password" label="Password" variant="outlined" 
           value={ credentials.password }
           onChange = { onChange }
           name = 'password'
+          sx={{margin:'5px'}}
         />
-        <Button variant='contained' onClick={login}>Login</Button>
+        <Button variant='contained' onClick={login} sx={{margin:'5px'}}>Login</Button>
       </form>
-      <Link to='/register'>Register</Link>
+      <Link to='/register' sx={{margin:'5px'}}>Register</Link>
     </Box>
+    </div>
   );
 };
 
