@@ -5,6 +5,8 @@ const Order = require('./Order');
 const LineItem  = require('./LineItem');
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios');
+const Movie = require('./Movie');
 
 Order.belongsTo(User);
 LineItem.belongsTo(Order);
@@ -24,6 +26,25 @@ const getImage = (path)=> {
   });
 };
 
+const insertMovieData = async(moviesAxios) =>{
+  const data = moviesAxios.data.results;
+  for(let movie of data ){
+    await Movie.create({
+      id: movie.id,
+      title: movie.title,
+      original_title: movie.original_title,
+      original_language: movie.original_language,
+      genre_ids: movie.genre_ids,
+      release_date: movie.release_date,
+      poster_URL: movie.poster_path,
+      overview: movie.overview,
+      popularity: movie.popularity,
+      vote_count: movie.vote_count,
+      vote_average: movie.vote_average
+    })
+  }
+}
+
 const syncAndSeed = async()=> {
   await conn.sync({ force: true });
   const avatar = await getImage(path.join(__dirname, '../../prof-avatar.png'));
@@ -36,6 +57,12 @@ const syncAndSeed = async()=> {
     Product.create({ name: 'bazz' }),
     User.create({ username: 'ethyl', password: '123' }),
   ]);
+
+  const moviesTopRated = await axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=4355caf50ba3e786e715b091d9b2bcda');
+  const moviesPopular = await axios.get('https://api.themoviedb.org/3/movie/popular?api_key=4355caf50ba3e786e715b091d9b2bcda');
+  await insertMovieData(moviesTopRated);
+  await insertMovieData(moviesPopular);
+
 
   const cart = await ethyl.getCart();
   await ethyl.addToCart({ product: bazz, quantity: 3});
@@ -58,5 +85,6 @@ const syncAndSeed = async()=> {
 module.exports = {
   syncAndSeed,
   User,
-  Product
+  Product,
+  Movie
 };

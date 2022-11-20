@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { attemptLogin } from '../store';
 import { useDispatch } from 'react-redux';
+import { TextField, Box, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Login = ()=> {
   const dispatch = useDispatch();
@@ -18,23 +20,26 @@ const Login = ()=> {
     dispatch(attemptLogin(credentials));
   };
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={ login }>
-        <input
-          placeholder='username'
-          value = { credentials.username }
-          name = 'username'
-          onChange = { onChange }
+    <div style={{display:'flex',justifyContent: 'center', alignItems: 'flex-start' ,minHeight: '80%'}}>
+      <Box sx={{maxWidth: 300, display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+        <h2>Login</h2>
+        <form>
+          <TextField id="username" label="Username" variant="outlined" 
+            value = { credentials.username }
+            onChange = { onChange }
+            name = 'username'
+            sx={{margin:'5px'}}
           />
-        <input
-          placeholder='password'
-          name = 'password'
-          value={ credentials.password }
-          onChange = { onChange }
-        />
-        <button>Login</button>
-      </form>
+          <TextField id="password" label="Password" variant="outlined" 
+            value={ credentials.password }
+            onChange = { onChange }
+            name = 'password'
+            sx={{margin:'5px'}}
+          />
+          <Button variant='contained' onClick={login} sx={{margin:'5px'}}>Login</Button>
+        </form>
+        <Link to='/register' sx={{margin:'5px'}}>Register</Link>
+      </Box>
     </div>
   );
 };
