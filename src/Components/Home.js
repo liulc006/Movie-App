@@ -16,7 +16,7 @@ const Home = ()=> {
   //Getting news from newsAPI
   // const newsapi = new NewsApi(NEWS_API_KEY);
   const keyword = 'movie'
-  const news_API_URL = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=`
+  const news_API_URL = `https://newsapi.org/v2/top-headlines?language=en&category=entertainment&q=${keyword}&apiKey=`
 
   useEffect(()=>{
     const fetchNews = async() => {
