@@ -1,8 +1,6 @@
-- A user should be able to see products
-- A logged in user should be able to
-  - see the items in their cart
-  - add a new product to their cart
-  - remove an item from their cart
-  - create an order
-- A user should be able to see their orders
-- A user should be able to create an account
+Movie App: movie database with access to movie API (TMDB) and news API about movie (NewsAPI)
+
+- Implemented 2 APIs
+  - TMDB: movie API to get details about specific movie and list of specific groups of Movies
+  - NewsAPI: news API to get news article overview about specific subjects and URL that connects to the article itself
+- Login/Register/Auth feature to allow user to login and personalize their Profile Page and 'Favorite Movie/Show' 
