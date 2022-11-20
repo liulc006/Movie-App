@@ -7,7 +7,7 @@ const Movie = () => {
 
     return (
         <>
-        <h1>MOVIE</h1>
+        <h1>MOVIE: </h1>
         {/* Need to Implement Filter Control bar for genre */}
         <MovieList movie={movie} />
         </>

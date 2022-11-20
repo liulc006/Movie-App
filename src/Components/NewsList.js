@@ -1,15 +1,17 @@
 import React from 'react';
-import MovieCard from './MovieCard';
+import NewsCard from './NewsCard';
 import { Container, Grid } from '@mui/material';
 
-const MovieList = (prop) => {
+const NewsList = (prop) => {
+    const newsShort = prop.news?.articles.slice(0,4);
     return (
         <>
+            <h1>News:</h1>
             <Container>
                 <Grid container direction="row" rowSpacing={6} columnSpacing={3}>
-                    {prop.movie.map(movie => {
+                    {newsShort?.map(news => {
                         return (
-                            <MovieCard key={movie.id} movie={movie}/>
+                            <NewsCard key={news.title} news={news}/>
                         )
                     })}
                 </Grid>
@@ -18,4 +20,4 @@ const MovieList = (prop) => {
     )
 };
 
-export default MovieList;
+export default NewsList;

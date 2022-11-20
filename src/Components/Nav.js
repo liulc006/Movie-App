@@ -19,7 +19,7 @@ import MovieIcon from '@mui/icons-material/Movie';
 
 
 // const pages = ['Home', 'Pricing', 'Blog'];
-const pages = [{ name: 'Home', route: '#/'},{ name: 'Movie', route: '#/movies'},{ name: 'TV SHOW', route: '#/'}]
+const pages = [{ name: 'Home', route: '#/'},{ name: 'Movie', route: '#/movies'},{ name: 'TV SHOW', route: '#/tvshows'}]
 const settings = ['Profile'];
 
 
@@ -49,7 +49,7 @@ const Nav = () => {
         <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <MovieIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <MovieIcon sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }} />
             <Typography
               variant="h6"
               noWrap
@@ -57,7 +57,7 @@ const Nav = () => {
               href="/"
               sx={{
                 mr: 2,
-                display: { xs: 'none', md: 'flex' },
+                display: { xs: 'flex', md: 'flex' },
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
@@ -69,7 +69,7 @@ const Nav = () => {
             </Typography>
 
         
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'space-evenly' }}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' }, justifyContent: 'space-evenly' }}>
               {pages.map((page) => (
                 <Button
                   key={page.name}

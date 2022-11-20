@@ -8,7 +8,9 @@ import { loginWithToken, fetchCart, fetchMovie } from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
 import Nav from './Nav';
 import Movie from './Movie';
-import MovieDetail from './MovieDetail'
+import MovieDetail from './MovieDetail';
+import Footer from './Footer';
+import TvShow from './TvShow';
 
 const App = ()=> {
   const { auth, onlineUsers } = useSelector(state => state);
@@ -33,7 +35,9 @@ const App = ()=> {
         <Route path='/login' element={ <Login /> } />
         <Route path='/movies' element={<Movie />} />
         <Route path='/movies/:id' element={<MovieDetail/>} />
+        <Route path='/tvshows' element={<TvShow />} />
       </Routes>
+      <Footer />
     </div>
   );
 };
