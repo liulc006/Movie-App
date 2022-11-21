@@ -7,11 +7,17 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const Movie = require('./Movie');
+const MovieRating = require('./MovieRating');
 
 Order.belongsTo(User);
 LineItem.belongsTo(Order);
 Order.hasMany(LineItem);
 LineItem.belongsTo(Product);
+
+MovieRating.belongsTo(User);
+User.hasMany(MovieRating);
+MovieRating.belongsTo(Movie);
+Movie.hasMany(MovieRating);
 
 const getImage = (path)=> {
   return new Promise((resolve, reject)=> {
@@ -48,9 +54,9 @@ const insertMovieData = async(moviesAxios) =>{
 const syncAndSeed = async()=> {
   await conn.sync({ force: true });
   const avatar = await getImage(path.join(__dirname, '../../prof-avatar.png'));
-  const [moe, lucy, larry, foo, bar, bazz, ethyl] = await Promise.all([
+  const [moe, luca, larry, foo, bar, bazz, ethyl] = await Promise.all([
     User.create({ username: 'moe', password: '123', avatar }),
-    User.create({ username: 'lucy', password: '123' }),
+    User.create({ username: 'luca', password: '123' }),
     User.create({ username: 'larry', password: '123' }),
     Product.create({ name: 'foo' }),
     Product.create({ name: 'bar' }),
@@ -63,6 +69,9 @@ const syncAndSeed = async()=> {
   await insertMovieData(moviesTopRated);
   await insertMovieData(moviesPopular);
 
+  await Promise.all([
+    MovieRating.create({userId:luca.id, movieId:'851644', star: 5, comment: 'One of the best Netflix Movie'})
+  ]);
 
   const cart = await ethyl.getCart();
   await ethyl.addToCart({ product: bazz, quantity: 3});
@@ -70,7 +79,7 @@ const syncAndSeed = async()=> {
   return {
     users: {
       moe,
-      lucy,
+      luca,
       larry
     },
     products: {
@@ -86,5 +95,6 @@ module.exports = {
   syncAndSeed,
   User,
   Product,
-  Movie
+  Movie,
+  MovieRating
 };
