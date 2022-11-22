@@ -4,7 +4,7 @@ import Login from './Login';
 import Register from './Register';
 import Profile from './Profile';
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { loginWithToken, fetchCart, fetchMovie } from '../store';
+import { loginWithToken, fetchCart, fetchMovie, fetchUsers, fetchMovieRating } from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
 import Nav from './Nav';
 import Movie from './Movie';
@@ -18,6 +18,8 @@ const App = ()=> {
   useEffect(()=> {
     dispatch(loginWithToken());
     dispatch(fetchMovie());
+    dispatch(fetchUsers());
+    dispatch(fetchMovieRating);
   }, []);
 
   useEffect(()=> {

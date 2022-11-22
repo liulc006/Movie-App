@@ -59,7 +59,7 @@ const MovieDetail = () => {
                             <Typography variant="body1">| Vote Average: {movie?.vote_average} |</Typography>
                             <Typography variant="body1">&nbsp; Vote Count: {movie?.vote_count}</Typography>
                         </div>
-                        <h3>Overview</h3>
+                        <Typography variant="h4">Overview</Typography>
                         <Typography variant='body1' maxWidth={'50rem'}>{movie?.overview}</Typography>
                         <div style={{display:'flex', flexDirection:'column'}}>
                             <hr />

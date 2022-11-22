@@ -17,6 +17,7 @@ app.use('/api/auth', require('./api/auth'));
 app.use('/api/orders', require('./api/orders'));
 app.use('/api/movie', require('./api/movie'));
 app.use('/api/movie_ratings', require('./api/movieRatings'));
+app.use('/api/users', require('./api/user'));
 
 
 module.exports = app;

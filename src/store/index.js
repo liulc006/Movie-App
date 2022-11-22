@@ -5,12 +5,14 @@ import auth from './auth';
 import cart from './cart';
 import movie from './movie';
 import movieRating from './movieRating';
+import users from './user';
 
 const reducer = combineReducers({
   auth,
   cart,
   movie,
   movieRating,
+  users,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
@@ -21,3 +23,4 @@ export * from './auth';
 export * from './cart';
 export * from './movie';
 export * from './movieRating';
+export * from './user';
