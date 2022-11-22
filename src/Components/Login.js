@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { attemptLogin } from '../store';
 import { useDispatch } from 'react-redux';
 import { TextField, Box, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = ()=> {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     username: '',
     password: ''
@@ -18,7 +19,9 @@ const Login = ()=> {
   const login = (ev)=> {
     ev.preventDefault();
     dispatch(attemptLogin(credentials));
+    navigate(-1);
   };
+
   return (
     <div style={{display:'flex',justifyContent: 'center', alignItems: 'flex-start' ,minHeight: '80%'}}>
       <Box sx={{maxWidth: 300, display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
