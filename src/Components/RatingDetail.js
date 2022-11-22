@@ -13,6 +13,13 @@ import {
 import dayjs from 'dayjs';
 import AddMovieRating from './AddMovieRating';
 
+const calcAvg = (rating) => {
+    const tot = rating.reduce((acc, val)=>{
+        return acc += val.star;
+    }, 0);
+    return tot/rating.length;
+}
+
 const RatingDetail = () => {
     const { id } = useParams()
     const {movieRating, users, auth} = useSelector(state=>state);
@@ -42,7 +49,11 @@ const RatingDetail = () => {
                 alignItems: 'center',
                 }}
             >
-                <Typography variant="h4">Reviews</Typography>
+                <Typography variant="h4">Reviews
+                <Rating name="half-rating-read" 
+                value={calcAvg(movieRating)} precision={0.5} readOnly 
+                />
+                </Typography>
                 {auth.id && !view ? (
                 <Button onClick={click}>Write a Review</Button>
                 ) : (
