@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../../secrets';
 import CardMedia from '@mui/material/CardMedia';
 import { Typography } from '@mui/material';
+import RatingDetail from './RatingDetail';
 
 
 const MovieDetail = () => {
@@ -79,6 +80,7 @@ const MovieDetail = () => {
                             <Typography variant="body1">Budget: ${movie?.budget}</Typography>
                             <Typography variant="body1">Revenue: ${movie?.revenue}</Typography>
                         </div>
+                        <RatingDetail />
                     </div>
                 </div>
             </div>
