@@ -1,15 +1,15 @@
 import React from 'react';
-import MovieCard from './MovieCard';
+import TvshowCard from './TvshowCard';
 import { Container, Grid } from '@mui/material';
 
-const MovieList = (prop) => {
+const TvshowList = (prop) => {
     return (
         <>
             <Container>
                 <Grid container direction="row" rowSpacing={6} columnSpacing={3}>
-                    {prop.movie?.map(movie => {
+                    {prop.tvshow?.map(tvshow => {
                         return (
-                            <MovieCard key={movie.id} movie={movie}/>
+                            <TvshowCard key={tvshow.id} tvshow={tvshow}/>
                         )
                     })}
                 </Grid>
@@ -18,4 +18,4 @@ const MovieList = (prop) => {
     )
 };
 
-export default MovieList;
+export default TvshowList;
